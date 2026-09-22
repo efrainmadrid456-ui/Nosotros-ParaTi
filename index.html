@@ -253,6 +253,12 @@
     border-top: 1px dashed var(--accent-soft);
     padding-top: 14px;
   }
+
+  .reveal { margin-top: 24px; display: flex; flex-direction: column; align-items: center; animation: fadeIn 0.5s ease; }
+  .reveal[hidden] { display: none; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+  .yesno button#yes1, .yesno button#yes2 { transition: transform 0.25s ease; }
+  .yesno button[disabled] { cursor: default; }
 </style>
 </head>
 <body>
@@ -310,6 +316,7 @@
     <div class="photo-slot"><img src="Detalles/1.jpeg" alt="Detalle 1" loading="lazy"></div>
     <div class="photo-slot"><img src="Detalles/2.jpeg" alt="Detalle 2" loading="lazy"></div>
     <div class="photo-slot"><img src="Detalles/3.jpeg" alt="Detalle 3" loading="lazy"></div>
+    <div class="photo-slot"><img src="Detalles/4.jpeg" alt="Detalle 4" loading="lazy"></div>
   </div>
 </section>
 
@@ -397,6 +404,82 @@
   </div>
 
   <div class="note">Hecho con todo mi amor para ti mi vida 🩷</div>
+</section>
+
+<section id="capitulo-infinito">
+  <div class="chapter-label">Capítulo ∞</div>
+  <h2>Recuerdos juntos</h2>
+  <p>
+    Todo esto solamente son algunas de las cosas que yo viví y que me hicieron enamorarme
+    de ti poco a poco. Quiero seguir creando miles de recuerdos juntos, me quiero seguir
+    sintiendo así por alguien que también me ama, me quiero sentir en mi hogar contigo. Sé
+    que muchas veces no hacemos la gran cosa, pero créeme que, por muy tranqui que sea
+    nuestro plan, sigo sintiendo mariposas en mi pancita cuando te veo. Simplemente ver tus
+    ojitos que tanto me gustan me llena de mucha energía. Quiero estar contigo toda mi
+    eternidad. No eres el amor de mi vida, eres el amor de mi alma porque las almas son
+    eternas. Eres mi caballito de mar porque ellos no pueden vivir el uno sin el otro, eres
+    mi agapornis porque ellos también se mueren cuando su pareja muere. Y te prometo que,
+    aunque las cosas se pongan difíciles, yo estaré ahí contigo, dándote todo mi apoyo,
+    porque cuando te veo feliz, yo lo soy el doble. Si estuvieras triste, yo haría mil
+    estupideces para sacarte una sonrisa. Quiero seguir acumulando recuerdos contigo, que
+    sean eternos para los dos, y un día podamos mirar hacia atrás y decir: valió la pena.
+  </p>
+
+  <div class="slideshow" id="recuerdosSlideshow">
+    <div class="slideshow-dots" id="recuerdosDots"></div>
+  </div>
+
+  <p style="color: var(--accent); font-weight: 500; margin-top: 28px;">
+    ¿Quieres seguir creando recuerdos eternos que nos duren toda la vida?
+  </p>
+  <div class="yesno" id="yesno1">
+    <button id="yes1">Sí</button>
+    <button class="secondary" id="no1">No</button>
+  </div>
+  <div class="reveal" id="reveal1" hidden>
+    <p style="color: var(--accent); font-weight: 500;">🩷 Prometido, para siempre. 🩷</p>
+  </div>
+
+  <p style="margin-top: 28px;">
+    Y si tuviera que pedir solo tres deseos, pediría casarme contigo, ser felices toda la
+    vida y una niña igualita a ti, tal y como siempre lo hemos hablado. Tener nuestra
+    casita, nuestro salchicha y un par de mini nosotros jajaja.
+  </p>
+  <div class="photo-row">
+    <div class="photo-slot"><img src="Deseos/1.JPG" alt="Deseos 1" loading="lazy"></div>
+    <div class="photo-slot"><img src="Deseos/2.JPG" alt="Deseos 2" loading="lazy"></div>
+    <div class="photo-slot"><img src="Deseos/3.JPG" alt="Deseos 3" loading="lazy"></div>
+  </div>
+</section>
+
+<section id="capitulo-propuesta" style="background: var(--bg-alt);">
+  <p>
+    Quiero poder seguir cuidando de ti, aprendiendo de ti. Quiero yo darte todo lo que
+    siempre has querido, quiero poder ser un buen novio para ti, porque sé que eres tú,
+    Ingrid. Tú eres mi persona y quiero quedarme contigo el resto de mis días.
+  </p>
+
+  <p style="color: var(--accent); font-weight: 500; margin-top: 20px;">
+    ¿Quieres que dejemos de ser amigos y volvamos a ser noviecitos?<br>
+    ¿Aceptas ser mi novia y mi futura esposa?
+  </p>
+  <div class="yesno" id="yesno2">
+    <button id="yes2">Sí</button>
+    <button class="secondary" id="no2">No</button>
+  </div>
+
+  <div class="reveal" id="reveal2" hidden>
+    <div class="photo-slot"><img src="Deseos/Papoi.jpeg" alt="Papoi" loading="lazy"></div>
+    <div class="highlight">
+      <p>
+        Gracias por aceptar ser mi novia otra vez, pulguita. ❤ Te amo muchísimo y prometo
+        cuidar este nuevo comienzo con todo mi corazón.
+      </p>
+      <p>Y pues… acabas de firmar matrimonio conmigo, así que ya no hay devoluciones JAJAJA. ❤</p>
+    </div>
+  </div>
+
+  <div class="note">Te amo tres millones mi vida, no podria vivir sin ti 🩷</div>
 </section>
 
 <script>
@@ -505,7 +588,9 @@
     "Flores/CFCF431C-51D8-47F1-9781-803573A472D4_1_105_c.jpeg",
     "Flores/E3014698-1C6C-481C-9579-C3D40E1FE847_1_105_c.jpeg",
     "Flores/E88C059B-A696-42D8-A121-3E09D58ECF9F_1_105_c.jpeg",
-    "Flores/F07CB640-38FE-4975-BD3E-DF67A9017340_4_5005_c.jpeg"
+    "Flores/F07CB640-38FE-4975-BD3E-DF67A9017340_4_5005_c.jpeg",
+    "Flores/72872bcd-46a3-4599-b7e6-eb669ef56a27.JPG",
+    "Flores/IMG_4470.PNG"
   ]);
 
   // ---- Fotos (capítulo 4) ----
@@ -527,6 +612,42 @@
     "Fotos/EB0A3806-0A3F-4C4F-9FB2-201B7B44C7CF_4_5005_c.jpeg",
     "Fotos/ED68C05C-EA2A-4931-A3EB-23967880296A_4_5005_c.jpeg"
   ]);
+
+  // ---- Más recuerdos (capítulo ∞) ----
+  buildSlideshow('recuerdosSlideshow', 'recuerdosDots', [
+    "Fotos/IMG_1725.jpg",
+    "Fotos/IMG_6859.jpeg",
+    "Fotos/IMG_4115.JPG",
+    "Fotos/IMG_7031.JPG",
+    "Fotos/IMG_1596.jpg"
+  ]);
+
+  // ---- Botones Sí / No (divertidos, el "No" no se mueve) ----
+  function setupYesNo(yesId, noId, revealId, onYes) {
+    const yesBtn = document.getElementById(yesId);
+    const noBtn = document.getElementById(noId);
+    const reveal = revealId ? document.getElementById(revealId) : null;
+    const noMessages = ['No', '¿Segura? 🥺', '¿Segura segura? 😢', '¿Pero segurita segurita? 😭', '¿De verdad de verdad? 🥹','Andaleee no seas gay'];
+    let noClicks = 0;
+
+    noBtn.addEventListener('click', () => {
+      noClicks = Math.min(noClicks + 1, noMessages.length - 1);
+      noBtn.textContent = noMessages[noClicks];
+      const scale = Math.min(1 + noClicks * 0.22, 2.4);
+      yesBtn.style.transform = `scale(${scale})`;
+    });
+
+    yesBtn.addEventListener('click', () => {
+      yesBtn.disabled = true;
+      noBtn.disabled = true;
+      noBtn.style.opacity = '0.4';
+      if (reveal) reveal.hidden = false;
+      if (onYes) onYes();
+    });
+  }
+
+  setupYesNo('yes1', 'no1', 'reveal1');
+  setupYesNo('yes2', 'no2', 'reveal2');
 </script>
 
 </body>
