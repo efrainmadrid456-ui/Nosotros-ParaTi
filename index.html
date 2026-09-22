@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Nuestra historia</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #fff0f4;
+    --bg-alt: #ffe2eb;
+    --text: #40292f;
+    --text-soft: #8a6169;
+    --accent: #d16b86;
+    --accent-soft: #f6c9d4;
+    --card-bg: #fffbfc;
+    --shadow: rgba(209,107,134,0.16);
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #241417;
+      --bg-alt: #2e1a1f;
+      --text: #f6e9ec;
+      --text-soft: #d8b6bf;
+      --accent: #f0839e;
+      --accent-soft: #7a3c48;
+      --card-bg: #331c21;
+      --shadow: rgba(0,0,0,0.35);
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #241417;
+    --bg-alt: #2e1a1f;
+    --text: #f6e9ec;
+    --text-soft: #d8b6bf;
+    --accent: #f0839e;
+    --accent-soft: #7a3c48;
+    --card-bg: #331c21;
+    --shadow: rgba(0,0,0,0.35);
+  }
+  html { scroll-padding-top: env(safe-area-inset-top, 0px); scroll-behavior: smooth; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Poppins', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+  }
+  section {
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 56px 24px;
+    position: relative;
+  }
+  h1, h2 {
+    font-family: 'Dancing Script', cursive;
+    color: var(--accent);
+    font-weight: 700;
+  }
+  h1 { font-size: clamp(2.4rem, 9vw, 4rem); margin: 0 0 12px; }
+  h2 { font-size: clamp(2rem, 7vw, 3rem); margin: 0 0 20px; }
+  p { max-width: 520px; line-height: 1.7; color: var(--text-soft); font-size: 1.05rem; }
+  .cover { background: linear-gradient(180deg, var(--bg) 0%, var(--bg-alt) 100%); }
+
+  .heart-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    margin-bottom: 4px;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .heart-btn .heart { font-size: 2.4rem; display: inline-block; transition: transform 0.2s ease; }
+  .heart-btn .heart.beating { animation: pulse 1.15s ease-in-out infinite; }
+  .heart-btn:active .heart { transform: scale(0.85); }
+  @keyframes pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.22); } }
+
+  .intro-hint {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    margin-bottom: 6px;
+    color: var(--accent);
+    font-size: 0.8rem;
+    letter-spacing: 0.5px;
+    animation: bob 1.6s ease-in-out infinite;
+    transition: opacity 0.4s ease;
+  }
+  .intro-hint .arrow { font-size: 1.1rem; }
+  .intro-hint[hidden] { display: none; }
+  @keyframes bob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(4px); } }
+
+  .scroll-hint { position: absolute; bottom: calc(28px + env(safe-area-inset-bottom, 0px)); font-size: 0.85rem; color: var(--text-soft); opacity: 0.8; }
+  .chapter-label { text-transform: uppercase; letter-spacing: 3px; font-size: 0.75rem; color: var(--accent); font-weight: 500; margin-bottom: 6px; }
+
+  .photo-slot {
+    width: min(340px, 82vw);
+    aspect-ratio: 4 / 5;
+    border-radius: 18px;
+    background: var(--card-bg);
+    border: 2px dashed var(--accent-soft);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-soft);
+    font-size: 0.85rem;
+    padding: 16px;
+    box-shadow: 0 10px 30px var(--shadow);
+    margin: 22px auto;
+    overflow: hidden;
+  }
+  .photo-slot img { width: 100%; height: 100%; object-fit: contain; border-radius: 16px; display: block; }
+  .photo-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 16px; }
+  .photo-row .photo-slot { width: min(220px, 40vw); aspect-ratio: 3/4; margin: 8px; }
+  .photo-row .photo-slot img, .gallery .photo-slot img { object-fit: cover; }
+
+  .gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+    gap: 8px;
+    width: min(680px, 92vw);
+    margin: 24px auto 0;
+  }
+  .gallery .photo-slot { width: 100%; aspect-ratio: 1; margin: 0; border-radius: 12px; box-shadow: 0 6px 16px var(--shadow); }
+  .gallery .photo-slot img { border-radius: 10px; transition: transform 0.25s ease; }
+  .gallery .photo-slot:hover img { transform: scale(1.06); }
+
+  .highlight {
+    max-width: 560px;
+    margin: 22px auto 0;
+    padding: 18px 22px;
+    background: var(--bg-alt);
+    border-radius: 16px;
+  }
+  .highlight p { font-style: italic; margin: 0; }
+
+  .slideshow {
+    position: relative;
+    width: min(340px, 82vw);
+    aspect-ratio: 4 / 5;
+    margin: 24px auto 0;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 14px 34px var(--shadow);
+    background: var(--card-bg);
+  }
+  .slideshow img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 1.1s ease;
+  }
+  .slideshow img.active { opacity: 1; }
+  .slideshow-dots {
+    position: absolute;
+    bottom: 12px;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+  }
+  .slideshow-dots span {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.55);
+  }
+  .slideshow-dots span.active { background: #fff; }
+
+  .player {
+    width: min(320px, 85vw);
+    margin: 28px auto 0;
+    background: linear-gradient(135deg, var(--accent), #f2a4b7);
+    border-radius: 24px;
+    padding: 20px;
+    box-shadow: 0 14px 32px var(--shadow);
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    color: #fff;
+  }
+  .player .cover-art {
+    width: 56px;
+    height: 56px;
+    border-radius: 14px;
+    object-fit: cover;
+    flex-shrink: 0;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  }
+  .player .track-info { flex: 1; min-width: 0; text-align: left; }
+  .player .track-title { font-size: 0.88rem; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .player .track-artist { font-size: 0.72rem; opacity: 0.85; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .player .controls { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
+  .player button {
+    background: rgba(255,255,255,0.22);
+    border: none;
+    color: #fff;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .player button.play-pause { width: 40px; height: 40px; background: #fff; color: var(--accent); font-size: 1rem; }
+  .player button:active { transform: scale(0.92); }
+
+  .yesno { display: flex; gap: 16px; margin-top: 24px; flex-wrap: wrap; justify-content: center; }
+  .yesno button {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+    padding: 14px 28px;
+    border-radius: 999px;
+    border: none;
+    cursor: pointer;
+    background: var(--accent);
+    color: white;
+    box-shadow: 0 8px 20px var(--shadow);
+    transition: transform 0.15s ease;
+  }
+  .yesno button.secondary {
+    background: transparent;
+    color: var(--accent);
+    border: 1.5px solid var(--accent-soft);
+    box-shadow: none;
+  }
+  .yesno button:active { transform: scale(0.96); }
+
+  .note {
+    max-width: 520px;
+    margin-top: 28px;
+    font-size: 0.78rem;
+    color: var(--text-soft);
+    opacity: 0.75;
+    border-top: 1px dashed var(--accent-soft);
+    padding-top: 14px;
+  }
+</style>
+</head>
+<body>
+
+<section class="cover">
+  <button class="heart-btn" id="heartBtn" aria-label="Iniciar">
+    <span class="heart" id="heartIcon">🩷</span>
+  </button>
+  <div class="intro-hint" id="introHint">
+    <span class="arrow">↑</span>
+    <span>click al corazón</span>
+  </div>
+  <h1>Para ti</h1>
+  <p>Así es nuestra historia de cómo me fui enamorando de ti poco a poquito, hasta que te convertiste en todo para mí.</p>
+  <div class="scroll-hint">desliza ↓</div>
+</section>
+
+<section id="capitulo-1">
+  <div class="chapter-label">Capítulo 1</div>
+  <h2>El principio</h2>
+  <p>
+    Todo comenzó con un simple "Holaa", que nunca imaginé que me llevaría a la mejor
+    historia de mi vida y, sobre todo, a encontrar a mi compañera de vida.
+  </p>
+
+  <div class="photo-slot"><img src="Primera vez/1.jpeg" alt="Primera vez 1" loading="lazy"></div>
+
+  <div class="highlight">
+    <p>
+      Y quién diría que, después de ese "Holaa", solo 10 días después estaría conociendo
+      al amor de mi vida y que, desde ese momento, sentiría algo diferente en mí. Aunque
+      no te mentiré, amor jajaja, creo que ya te lo he dicho, pero pensé que no querías
+      verme y me puse triste jajaja.
+    </p>
+  </div>
+
+  <div class="photo-row">
+    <div class="photo-slot"><img src="Primera vez/2.jpeg" alt="Primera vez 2" loading="lazy"></div>
+    <div class="photo-slot"><img src="Primera vez/3.jpeg" alt="Primera vez 3" loading="lazy"></div>
+    <div class="photo-slot"><img src="Primera vez/4.jpeg" alt="Primera vez 4" loading="lazy"></div>
+  </div>
+</section>
+
+<section id="capitulo-2" style="background: var(--bg-alt);">
+  <div class="chapter-label">Capítulo 2</div>
+  <h2>Tus detalles</h2>
+  <p>
+    No a todos les he tomado foto, pero siempre llevaré conmigo esos detalles que
+    tuviste conmigo desde el principio, que sin duda marcaron la diferencia y me hicieron darme cuenta
+    de la niña de la que me estaba enamorando. Sin dudarlo, volvería a elegirte una
+    y mil veces más.
+  </p>
+
+  <div class="photo-row">
+    <div class="photo-slot"><img src="Detalles/1.jpeg" alt="Detalle 1" loading="lazy"></div>
+    <div class="photo-slot"><img src="Detalles/2.jpeg" alt="Detalle 2" loading="lazy"></div>
+    <div class="photo-slot"><img src="Detalles/3.jpeg" alt="Detalle 3" loading="lazy"></div>
+  </div>
+</section>
+
+<section id="capitulo-3" style="background: var(--bg-alt);">
+  <div class="chapter-label">Capítulo 3</div>
+  <h2>Las flores</h2>
+  <p>
+    No a todas les tomé foto, pero cada ramo fue una forma de decirte que estaba
+    pensando en ti, que me gustabas y que, sin dudarlo un solo segundo, solo quería
+    llenarte de flores a ti el resto de mi vida. Te prometí que te llenaría siempre
+    de flores hasta que pareciera florería, y eso estoy haciendo. Así sean mis
+    últimos pesitos de la semana, me encanta verte feliz, mi vida. Hasta he
+    aprendido a escoger flores para ti. Todavía no soy ningún experto jajaja, pero
+    tú solita has visto cómo ya me sé el nombre de muchas florecitas y cómo he
+    aprendido por ti, simplemente por querer hacerte feliz siempre.
+  </p>
+  <p>
+    Sin duda, los dos ramitos que siempre llevaré conmigo son estos: uno fue el
+    primero y con el otro te pedí ser mi novia.
+  </p>
+
+  <div class="photo-row">
+    <div class="photo-slot"><img src="Flores/1.jpeg" alt="Flores 1" loading="lazy"></div>
+    <div class="photo-slot"><img src="Flores/2.jpeg" alt="Flores 2" loading="lazy"></div>
+  </div>
+</section>
+
+<section id="capitulo-3b">
+  <p>
+    Pero sin importar qué ocasión sea, siempre quiero llenarte de florecitas. Sé
+    que lo material nunca podrá demostrarte cuánto te amo, pero quizá sí pueda
+    ayudarte a sentir, aunque sea un poquito, todo eso que siento cuando te veo.
+  </p>
+
+  <div class="slideshow" id="floresSlideshow">
+    <div class="slideshow-dots" id="floresDots"></div>
+  </div>
+
+  <div class="highlight">
+    <p>
+      Lo lindo que me haces sentir cuando ves tus cartitas y que aún sigues
+      guardando cada una de ellas… Te amo, Ingrid.
+    </p>
+  </div>
+  <div class="photo-slot"><img src="Flores/4.jpeg" alt="Flores 4" loading="lazy"></div>
+
+  <div class="highlight">
+    <p>
+      O las veces que me escapo de la oficina para poder ir a conseguirte lo que
+      te gusta jajaja. Siempre serás mi niña consentida.
+    </p>
+  </div>
+  <div class="photo-slot"><img src="Flores/3.jpeg" alt="Flores 3" loading="lazy"></div>
+</section>
+
+<section id="capitulo-4" style="background: var(--bg-alt);">
+  <div class="chapter-label">Capítulo 4</div>
+  <h2>Nosotros</h2>
+  <p>
+    Por esto y mil razones más, quiero seguir eligiéndote. No sabes la emoción y
+    los nervios que aún siento cuando estamos por vernos o cuando estamos juntos.
+    O simplemente recibir un mensaje tuyo; para mí es como sentirme vivo otra vez.
+  </p>
+  <p>Los momentos más simples se vuelven mejores a tu lado.</p>
+  <p style="color: var(--accent); font-weight: 500;">
+    Te amo tres millones, Ingrid, y quiero estar contigo el resto de mi vida.
+  </p>
+
+  <div class="slideshow" id="slideshow">
+    <div class="slideshow-dots" id="slideshowDots"></div>
+  </div>
+
+  <audio id="audioPlayer" preload="none"></audio>
+  <div class="player">
+    <img class="cover-art" id="coverArt" src="Portadas/taylor.jpg" alt="Portada">
+    <div class="track-info">
+      <div class="track-title" id="trackTitle">Love Story (Taylor's Version)</div>
+      <div class="track-artist" id="trackArtist">Taylor Swift</div>
+    </div>
+    <div class="controls">
+      <button id="prevBtn" aria-label="Anterior">⏮</button>
+      <button id="playPauseBtn" class="play-pause" aria-label="Reproducir">▶</button>
+      <button id="nextBtn" aria-label="Siguiente">⏭</button>
+    </div>
+  </div>
+
+  <div class="note">Hecho con todo mi amor para ti mi vida 🩷</div>
+</section>
+
+<script>
+  // ---- Reproductor de música ----
+  const tracks = [
+    { src: "Musica/music.mp3", title: "Love Story (Taylor's Version)", artist: "Taylor Swift", cover: "Portadas/taylor.jpg" },
+    { src: "Musica/music2.mp3", title: "Te Quiero Tanto, Tanto", artist: "OV7", cover: "Portadas/ov7.jpg" },
+    { src: "Musica/Alejandro Fernández - Contigo Aprendí (Audio Oficial) - Alejandro Fernández (128k).mp3", title: "Contigo Aprendí", artist: "Alejandro Fernández", cover: "Portadas/alejandro.jpeg" },
+    { src: "Musica/Alejandro Fernández - Me Hace Tanto Bien (Video Oficial) - Alejandro Fernández (128k).mp3", title: "Me Hace Tanto Bien", artist: "Alejandro Fernández", cover: "Portadas/alejandro.jpeg" }
+  ];
+
+  const audio = document.getElementById('audioPlayer');
+  const coverArt = document.getElementById('coverArt');
+  const trackTitle = document.getElementById('trackTitle');
+  const trackArtist = document.getElementById('trackArtist');
+  const playPauseBtn = document.getElementById('playPauseBtn');
+  let currentTrack = 0;
+
+  function loadTrack(i, autoplay) {
+    currentTrack = (i + tracks.length) % tracks.length;
+    const t = tracks[currentTrack];
+    audio.src = encodeURI(t.src);
+    coverArt.src = t.cover;
+    trackTitle.textContent = t.title;
+    trackArtist.textContent = t.artist;
+    if (autoplay) {
+      audio.play().catch(() => {});
+    }
+  }
+
+  function updatePlayIcon() {
+    playPauseBtn.textContent = audio.paused ? '▶' : '⏸';
+  }
+
+  loadTrack(0, false);
+
+  playPauseBtn.addEventListener('click', () => {
+    if (audio.paused) {
+      if (!audio.src) loadTrack(currentTrack, false);
+      audio.play().catch(() => {});
+    } else {
+      audio.pause();
+    }
+  });
+  document.getElementById('prevBtn').addEventListener('click', () => loadTrack(currentTrack - 1, true));
+  document.getElementById('nextBtn').addEventListener('click', () => loadTrack(currentTrack + 1, true));
+  audio.addEventListener('play', updatePlayIcon);
+  audio.addEventListener('pause', updatePlayIcon);
+  audio.addEventListener('ended', () => loadTrack(currentTrack + 1, true));
+
+  // ---- Corazón: click para iniciar (late + música) ----
+  const heartBtn = document.getElementById('heartBtn');
+  const heartIcon = document.getElementById('heartIcon');
+  const introHint = document.getElementById('introHint');
+  let started = false;
+
+  heartBtn.addEventListener('click', () => {
+    if (started) return;
+    started = true;
+    heartIcon.classList.add('beating');
+    introHint.hidden = true;
+    loadTrack(0, true);
+  });
+
+  // ---- Slideshow genérico (fade automático) ----
+  function buildSlideshow(containerId, dotsId, images) {
+    const container = document.getElementById(containerId);
+    const dotsWrap = document.getElementById(dotsId);
+    images.forEach((src, i) => {
+      const img = document.createElement('img');
+      img.src = encodeURI(src);
+      img.alt = 'Foto ' + (i + 1);
+      img.loading = 'lazy';
+      if (i === 0) img.classList.add('active');
+      container.insertBefore(img, dotsWrap);
+
+      const dot = document.createElement('span');
+      if (i === 0) dot.classList.add('active');
+      dotsWrap.appendChild(dot);
+    });
+
+    let index = 0;
+    const imgs = container.querySelectorAll('img');
+    const dots = dotsWrap.querySelectorAll('span');
+    setInterval(() => {
+      imgs[index].classList.remove('active');
+      dots[index].classList.remove('active');
+      index = (index + 1) % imgs.length;
+      imgs[index].classList.add('active');
+      dots[index].classList.add('active');
+    }, 3200);
+  }
+
+  // ---- Resto del álbum de flores ----
+  buildSlideshow('floresSlideshow', 'floresDots', [
+    "Flores/5.jpeg",
+    "Flores/07759A57-7676-4BC4-837D-6A36198B0C36_1_105_c.jpeg",
+    "Flores/3580E99A-AEE9-41BF-90BF-D7E18E4139BE_4_5005_c.jpeg",
+    "Flores/56C56D03-A2E8-4808-A35C-1AFCA4CA7B7C_1_105_c.jpeg",
+    "Flores/8C5E961D-4EB1-4C69-ADE1-9E4059396A74_1_105_c.jpeg",
+    "Flores/9940CE1A-D255-4A5F-A368-B12323AF5CE1_1_105_c.jpeg",
+    "Flores/A1CC6AF2-AE00-4BA3-8545-82B77F01CBEC_1_105_c.jpeg",
+    "Flores/AA2F9111-829D-4B5F-B2C1-2A63FFF7FCDC_1_105_c.jpeg",
+    "Flores/C86FA2B1-0AE9-43F7-96BE-83DDB78C4885_1_105_c.jpeg",
+    "Flores/CEFFC65D-0DBF-4190-822D-92D8C015EB77_4_5005_c.jpeg",
+    "Flores/CFCF431C-51D8-47F1-9781-803573A472D4_1_105_c.jpeg",
+    "Flores/E3014698-1C6C-481C-9579-C3D40E1FE847_1_105_c.jpeg",
+    "Flores/E88C059B-A696-42D8-A121-3E09D58ECF9F_1_105_c.jpeg",
+    "Flores/F07CB640-38FE-4975-BD3E-DF67A9017340_4_5005_c.jpeg"
+  ]);
+
+  // ---- Fotos (capítulo 4) ----
+  buildSlideshow('slideshow', 'slideshowDots', [
+    "Fotos/052AEE60-3DF2-4C07-8218-46631585EE1B_1_105_c.jpeg",
+    "Fotos/285DC392-DEF5-4E45-B8DC-B134A04489CA_1_105_c.jpeg",
+    "Fotos/2BF52EF7-1DB4-4A84-83E9-383EC62A8439_4_5005_c.jpeg",
+    "Fotos/398F85B1-5F16-4A0A-AEA7-637754C4CA52_1_105_c.jpeg",
+    "Fotos/3FD718B9-A49B-493F-91E0-94562747B351_1_105_c.jpeg",
+    "Fotos/63F2B5AA-BB21-4473-AA79-3F0C7460BCE8_4_5005_c.jpeg",
+    "Fotos/A316A86C-3751-499E-AD95-10D25F5332E5_1_105_c.jpeg",
+    "Fotos/B26C3CF8-6664-4F6A-8532-83E75867F524_4_5005_c.jpeg",
+    "Fotos/B9B4B2A7-C2B7-4114-9BD5-5F670D3CBAD4_1_105_c.jpeg",
+    "Fotos/BDA788B1-C541-4EA3-A542-F8E5A6982B5F_1_105_c.jpeg",
+    "Fotos/CEC4A532-A6A9-4AF9-A427-3EE1117763C7_1_105_c.jpeg",
+    "Fotos/D964C670-667F-4566-8913-C29AE07A59DE_4_5005_c.jpeg",
+    "Fotos/E091C288-3AF4-4F8B-B43A-0249253083A2_1_105_c.jpeg",
+    "Fotos/E40B6B1E-13A7-49ED-AC72-317A9D09684C_1_105_c.jpeg",
+    "Fotos/EB0A3806-0A3F-4C4F-9FB2-201B7B44C7CF_4_5005_c.jpeg",
+    "Fotos/ED68C05C-EA2A-4931-A3EB-23967880296A_4_5005_c.jpeg"
+  ]);
+</script>
+
+</body>
+</html>
